@@ -1,0 +1,22 @@
+<html>
+  <head>
+    <title>Count down</title>
+    <script type="text/javascript" src="lib/jquery-1.4.3.min.js"></script>
+    <script type="text/javascript" src="lib/countdown.js"></script>
+  </head>
+
+  <body>
+    <h1 id="title"></h1>
+    <div id="container"></div>
+    
+    <script type="text/javascript">
+      var qsp = QueryStringHelper.parse(window.location.search);
+      qsp.d = qsp.d  || "1 January 2010";
+      qsp.title = qsp.title || "Countdown";
+      
+      var cd = new Countdown(new Date(qsp.d));
+      var ui = new CountdownUI(qsp.title, cd);
+      ui.start();
+    </script>
+  </body>
+</html>
