@@ -1,0 +1,20 @@
+<html>
+  <head>
+    <title>Count down tests</title>
+    <script type="text/javascript" src="lib/jquery-1.4.3.min.js"></script>
+    <script type="text/javascript" src="lib/countdown.js"></script>
+    <script type="text/javascript" src="tests/countdown.tests.js"></script>
+  </head>
+
+  <body>
+
+    <textarea id="log" style="width: 100%; height: 400px;"></textarea>
+    
+    <script type="text/javascript">
+      Tests.log = function(group, member, pass, message) {
+        $("#log").append((pass?"PASS: ":"FAIL: ") + group + " - " + member + ": " + message + "<br />");
+      };
+      Tests.run();
+    </script>
+  </body>
+</html>
