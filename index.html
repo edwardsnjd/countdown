@@ -3,12 +3,22 @@
     <title>Count down</title>
     <script type="text/javascript" src="lib/jquery-1.4.3.min.js"></script>
     <script type="text/javascript" src="lib/countdown.js"></script>
+    <style type="text/css">
+      #floater { float: left; height: 50%; margin-bottom: -120px; }
+      #content { clear: both; height: 240px; position: relative; }
+      #title { text-align: center; font-size: 4em; }
+      #container { text-align: center; font-size: 3em; }
+    </style>
   </head>
 
   <body>
-    <h1 id="title"></h1>
-    <div id="#whenContainer"></div>
-    <div id="container"></div>
+
+    <div id="floater"></div>
+    
+    <div id="content">
+      <h1 id="title"></h1>
+      <div id="container"></div>
+    </div>
 
     <script type="text/javascript">
       var qsp = QueryStringHelper.parse(window.location.search);
