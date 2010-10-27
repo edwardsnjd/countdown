@@ -15,7 +15,7 @@
       qsp.when = qsp.when || "1 January 2011";
       qsp.title = qsp.title || qsp.when;
       
-      var cd = new Countdown(qsp.title, new Date((new Date()).getTime() + 3000));//  new Date(qsp.when));
+      var cd = new Countdown(qsp.title, new Date(qsp.when));
       var ui = new CountdownUI(qsp.title, cd);
       ui.start();
     </script>
