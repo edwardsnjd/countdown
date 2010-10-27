@@ -58,6 +58,44 @@ Tests.Countdown = {
 };
 
 Tests.QueryStringHelper = {
+	parseEmpty: function() {
+		var params = QueryStringHelper.parse("");
+		Tests.assert(typeof params.t == "undefined", "A parameter was found from an empty input.");
+	},
+	parseEmptyWithQ: function() {
+		var params = QueryStringHelper.parse("?");
+		Tests.assert(typeof params.t == "undefined", "A parameter was found from an empty input.");
+	},
+	parseSingleNoValue: function() {
+		var params = QueryStringHelper.parse("?t");
+		Tests.assert(typeof params.t != "undefined", "The t parameter was not found from \"?t\".");
+	},
+	parseSingleWithValue: function() {
+		var params = QueryStringHelper.parse("?t=123");
+		Tests.assert(typeof params.t != "undefined", "The t parameter was not found from \"?t=123\".");
+		Tests.assert(params.t === "123", "The t parameter value was not found in \"?t=123\".");
+	},
+	parseSingleWithEqualsInValue: function() {
+		var params = QueryStringHelper.parse("?t=123=12345=4=fdf=fjdkj");
+		Tests.assert(typeof params.t != "undefined", "The t parameter was not found from \"?t=123=12345=4=fdf=fjdkj\".");
+		Tests.assert(params.t === "123=12345=4=fdf=fjdkj", "The t parameter value was not found in \"?t=123=12345=4=fdf=fjdkj\".");
+	},
+	parseMutipleValues: function() {
+		var params = QueryStringHelper.parse("?t=123&foo=bar");
+		Tests.assert(typeof params.t != "undefined", "The t parameter was not found from \"?t=123&foo=bar\".");
+		Tests.assert(typeof params.foo != "undefined", "The foo parameter was not found from \"?t=123&foo=bar\".");
+		Tests.assert(params.t === "123", "The t parameter value was not found in \"?t=123&foo=bar\".");
+		Tests.assert(params.foo === "bar", "The foo parameter value was not found in \"?t=123&foo=bar\".");
+	},
+	parseMutipleNastyValues: function() {
+		var params = QueryStringHelper.parse("?t=123=+4343j%20fjkjkfdlj=f&fo&o=ba++++FFff==d==r");
+		Tests.assert(typeof params.t != "undefined", "The t parameter was not found from \"?t=123=+4343j%20fjkjkfdlj=f&fo&o=ba++++FFff==d==r\".");
+		Tests.assert(typeof params.fo != "undefined", "The fo parameter was not found from \"?t=123=+4343j%20fjkjkfdlj=f&fo&o=ba++++FFff==d==r\".");
+		Tests.assert(typeof params.o != "undefined", "The fo parameter was not found from \"?t=123=+4343j%20fjkjkfdlj=f&fo&o=ba++++FFff==d==r\".");
+		Tests.assert(params.t === "123= 4343j fjkjkfdlj=f", "The t parameter value was not found in \"?t=123=+4343j%20fjkjkfdlj=f&fo&o=ba++++FFff==d==r\".");
+		Tests.assert(params.fo === "", "The fo parameter value was not found in \"?t=123=+4343j%20fjkjkfdlj=f&fo&o=ba++++FFff==d==r\".");
+		Tests.assert(params.o === "ba    FFff==d==r", "The fo parameter value was not found in \"?t=123=+4343j%20fjkjkfdlj=f&fo&o=ba++++FFff==d==r\".");
+	}
 };
 
 Tests.Timespan = {
