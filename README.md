@@ -12,3 +12,4 @@ Things to do
 - Make it look nice
 - Add support for friendly input text e.g. "lunchtime", "tomorrow"
 - Add support for custom format string parameter for display
+- Add unit tests
