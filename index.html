@@ -7,6 +7,7 @@
       #floater { float: left; height: 50%; margin-bottom: -120px; }
       #content { clear: both; height: 240px; position: relative; }
       #title { text-align: center; font-size: 4em; }
+      #whenContainer { text-align: center; font-size: .8em; margin: 1em; }
       #container { text-align: center; font-size: 3em; }
     </style>
   </head>
@@ -17,6 +18,7 @@
     
     <div id="content">
       <h1 id="title"></h1>
+      <div id="whenContainer"></div>
       <div id="container"></div>
     </div>
 
@@ -26,7 +28,7 @@
       qsp.title = qsp.title || qsp.when;
       
       var cd = new Countdown(qsp.title, new Date(qsp.when));
-      var ui = new CountdownUI(qsp.title, cd);
+      var ui = new CountdownUI(cd, {title: "#title", container: "#container", when: "#whenContainer"});
       ui.start();
     </script>
   </body>
