@@ -8,8 +8,8 @@ moment.
 Things to do
 ------------
 
-- Solidify query string handling
 - Make it look nice
 - Add support for friendly input text e.g. "lunchtime", "tomorrow"
-- Add support for custom format string parameter for display
-- Add unit tests
+- Add support for custom format string parameter for display?
+- Add support for a couple of fixed display mode e.g. text | numeric
+- Improve unit test coverage

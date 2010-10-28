@@ -1,11 +1,15 @@
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <title>Count down</title>
     <script type="text/javascript" src="lib/jquery-1.4.3.min.js"></script>
     <script type="text/javascript" src="lib/countdown.js"></script>
     <style type="text/css">
+      body { width: 90%; margin: auto; position: }
+      
       #floater { float: left; height: 50%; margin-bottom: -120px; }
       #content { clear: both; height: 240px; position: relative; }
+      #edit { position: absolute; right: 5%; bottom: 5%; }
+
       #title { text-align: center; font-size: 4em; }
       #whenContainer { text-align: center; font-size: .8em; margin: 1em; }
       #container { text-align: center; font-size: 3em; }
@@ -20,10 +24,18 @@
     <div id="floater"></div>
     
     <div id="content">
-      <h1 id="title"></h1>
-      <div id="whenContainer"></div>
-      <div id="container"></div>
+      <h1 id="title">Title</h1>
+      <div id="whenContainer">When</div>
+      <div id="container">Countdown</div>
     </div>
+
+    <form action="edit.html" method="get">
+      <div id="edit">
+        <input type="hidden" name="title" id="titleEdit" />
+        <input type="hidden" name="when" id="whenEdit" />
+        <input type="submit" value="Edit" />
+      </div>
+    </form>
 
     <script type="text/javascript">
       var qsp = QueryStringHelper.parse(window.location.search);
@@ -32,6 +44,8 @@
 
       var cd = new Countdown(qsp.title, new Date(qsp.when));
       var ui = new CountdownUI(cd, {title: "#title", container: "#container", when: "#whenContainer", pastClass: "past", futureClass: "future"});
+      var editUI = new CountdownEditUI(cd, {title: "#titleEdit", when: "#whenEdit" });
+
       ui.start();
     </script>
   </body>

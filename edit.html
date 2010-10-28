@@ -1,0 +1,38 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>Count down: Edit</title>
+    <script type="text/javascript" src="lib/jquery-1.4.3.min.js"></script>
+    <script type="text/javascript" src="lib/countdown.js"></script>
+    <style type="text/css">
+    </style>
+  </head>
+
+  <body>
+    <h1>Count down - Edit</h1>
+
+    <p>Use this page to edit or create a count down (same thing).</p>
+
+    <form action="index.html" method="get">
+      <fieldset>
+        <label>
+          Title: <input name="title" id="title" type="text" />
+        </label>
+        <br />
+        <label>
+          When: <input name="when" id="when" type="text" />
+        </label>
+        <br />
+        <input type="submit" value="Go!" />
+      </fieldset>
+    </form>
+    
+    <script type="text/javascript">
+      var qsp = QueryStringHelper.parse(window.location.search);
+      qsp.when = qsp.when || "1 January 2011";
+      qsp.title = qsp.title || qsp.when;
+
+      var cd = new Countdown(qsp.title, new Date(qsp.when));
+      var ui = new CountdownEditUI(cd, { title: "#title", when: "#when" });
+    </script>
+  </body>
+</html>
