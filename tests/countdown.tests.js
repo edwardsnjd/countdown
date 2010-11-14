@@ -41,19 +41,40 @@ if (typeof(Tests) == "undefined") {
 	};
 }
 
-Tests.Countdown = {
-	ctor: function() {
-		var title = "jkdfjk";
-		var when = new Date();
-		var cd = new Countdown(title, when);
-		Tests.assert(cd.title == title, "Supplied title wasn't returned");
-		Tests.assert(cd.when == when, "Supplied when wasn't returned");
+Tests.CountdownParseDate = {
+	NoArgs: function() {
+		var cd = Countdown.ParseDate();
+		Tests.assert(cd, "Date was null");
 	},
-	ctorPassedNulls: function() {
-		var cd = new Countdown(null, null);
-		Tests.assert(cd.title == "Countdown", "Default title wasn't supplied");
-		Tests.assert(cd.when != null, "Default when wasn't supplied");
-		Tests.assert(typeof(cd.when.getTime) == "function", "Default when wasn't a date");
+	Empty: function() {
+		var cd = Countdown.ParseDate("");
+		Tests.assert(cd, "Date was null");
+	},
+	Date: function() {
+		var cd = Countdown.ParseDate("31-12-2008");
+		Tests.assert(+cd == +new Date(2008,11,31,0,0,0), "Date should have been 31-12-2008, " + cd);
+	},
+	Time: function() {
+		var cd = Countdown.ParseDate("11:34");
+		var d = new Date();
+		d.setHours(11);
+		d.setMinutes(34,0,0);
+		Tests.assert(+cd == +d, "Date should have been today at 11:34, " + cd);
+	},
+	DateTime: function() {
+		var cd = Countdown.ParseDate("11:34 15-01-2008");
+		Tests.assert(+cd == +new Date(2008,0,15,11,34), "Date should have been 11:34 15-01-2008, " + cd);
+	},
+	Today: function() {
+		var cd = Countdown.ParseDate("today");
+		var d = new Date();
+		d.setHours(0);
+		d.setMinutes(0,0,0);
+		Tests.assert(+cd == +d, "Date should have been today, " + cd);
+	},
+	Invalid: function() {
+		var cd = Countdown.ParseDate("nowfds ds fds");
+		Tests.assert(cd == null, "Date should be null");
 	}
 };
 
@@ -98,5 +119,24 @@ Tests.QueryStringHelper = {
 	}
 };
 
-Tests.Timespan = {
+Tests.Countdown = {
+	ctorPassedNulls: function() {
+		var cd = new Countdown(null, null);
+		Tests.assert(cd.title == "", "Default empty title wasn't supplied");
+		Tests.assert(cd.when != null, "Default when wasn't supplied");
+		Tests.assert(typeof(cd.when.getTime) == "function", "Default when wasn't a date");
+	},
+	ctor: function() {
+		var title = "jkdfjk";
+		var when = Countdown.ParseDate();
+		var cd = new Countdown(title, when.date);
+		Tests.assert(cd.title == title, "Supplied title wasn't returned");
+		Tests.assert(+cd.when == +when, "Supplied when wasn't returned");
+	},
+	ctorPassedNullTitle: function() {
+		var when = Countdown.ParseDate("");
+		var cd = new Countdown(null, when.date);
+		Tests.assert(cd.title == "", "Default empty title wasn't supplied");
+		Tests.assert(+cd.when == +when, "Supplied when wasn't returned");
+	}
 };

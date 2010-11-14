@@ -4,6 +4,7 @@
     <script type="text/javascript" src="lib/jquery-1.4.3.min.js"></script>
     <script type="text/javascript" src="lib/countdown.js"></script>
     <style type="text/css">
+    .info { font-size: 80%; color: red; }
     </style>
   </head>
 
@@ -20,6 +21,7 @@
         <br />
         <label>
           When: <input name="when" id="when" type="text" />
+          <span class="info" id="whenInfo">Invalid date.  Valid formats: "today", "hh:mm", "dd-mm-yyyy", "hh:mm dd-mm-yyyy"</span>
         </label>
         <br />
         <input type="submit" value="Go!" />
@@ -28,11 +30,8 @@
     
     <script type="text/javascript">
       var qsp = QueryStringHelper.parse(window.location.search);
-      qsp.when = qsp.when || "1 January 2011";
-      qsp.title = qsp.title || qsp.when;
 
-      var cd = new Countdown(qsp.title, new Date(qsp.when));
-      var ui = new CountdownEditUI(cd, { title: "#title", when: "#when" });
+      var ui = new CountdownEditUI(qsp, { title: "#title", when: "#when", invalid: "#whenInfo" });
     </script>
   </body>
 </html>
