@@ -44,11 +44,11 @@ if (typeof(Tests) == "undefined") {
 Tests.CountdownParseDate = {
 	NoArgs: function() {
 		var cd = Countdown.ParseDate();
-		Tests.assert(cd, "Date was null");
+		Tests.assert(cd != null, "Date was null");
 	},
 	Empty: function() {
 		var cd = Countdown.ParseDate("");
-		Tests.assert(cd, "Date was null");
+		Tests.assert(cd != null, "Date was null");
 	},
 	Date: function() {
 		var cd = Countdown.ParseDate("31-12-2008");
@@ -124,19 +124,30 @@ Tests.Countdown = {
 		var cd = new Countdown(null, null);
 		Tests.assert(cd.title == "", "Default empty title wasn't supplied");
 		Tests.assert(cd.when != null, "Default when wasn't supplied");
-		Tests.assert(typeof(cd.when.getTime) == "function", "Default when wasn't a date");
+		Tests.assert(cd.when instanceof Date, "Default when wasn't a date");
 	},
 	ctor: function() {
 		var title = "jkdfjk";
-		var when = Countdown.ParseDate();
-		var cd = new Countdown(title, when.date);
-		Tests.assert(cd.title == title, "Supplied title wasn't returned");
-		Tests.assert(+cd.when == +when, "Supplied when wasn't returned");
+		var when = new Date();
+		var cd = new Countdown(title, when);
+		Tests.assert(cd.title === title, "Supplied title wasn't returned");
+		Tests.assert(cd.when === when, "Supplied when wasn't returned");
 	},
 	ctorPassedNullTitle: function() {
-		var when = Countdown.ParseDate("");
-		var cd = new Countdown(null, when.date);
+		var when = new Date();
+		var cd = new Countdown(null, when);
 		Tests.assert(cd.title == "", "Default empty title wasn't supplied");
-		Tests.assert(+cd.when == +when, "Supplied when wasn't returned");
+		Tests.assert(cd.when === when, "Supplied when wasn't returned");
+	},
+	getSinceTimeSpan: function() {
+		var when = new Date();
+		var cd = new Countdown("title", when);
+		Tests.assert(typeof(cd.getSinceTimeSpan) === "function", "getSinceTimeSpan should be an available function");
+		var ts1 = cd.getSinceTimeSpan();
+		while ((new Date()).getTime() - when.getTime() == 0) { }
+		var ts2 = cd.getSinceTimeSpan();
+		Tests.assert(ts1 instanceof Timespan, "getSinceTimeSpan should return a timespan");
+		Tests.assert(ts2 instanceof Timespan, "getSinceTimeSpan should return a timespan");
+		Tests.assert(ts1.ms < ts2.ms, "getSinceTimeSpan should return increasing timespans");
 	}
 };
