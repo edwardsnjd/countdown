@@ -1,25 +1,33 @@
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!doctype html>
+<html lang="en">
   <head>
     <title>Count down</title>
     <link rel="stylesheet" href="assets/css/styles.css">
     <script type="text/javascript" src="assets/js/counter-bootstrap.min.js"></script>
   </head>
   <body>
-    <div class="container">
-      <div id="floater"></div>
-      <div id="content" class="text-center">
-        <h1 id="title" class="">Title</h1>
-        <div id="whenContainer">When</div>
-        <div id="container">Countdown</div>
-      </div>
-
-      <form action="edit.html" method="get">
-        <div id="edit">
-          <input type="hidden" name="title" id="titleEdit" />
-          <input type="hidden" name="when" id="whenEdit" />
-          <input type="submit" value="Edit" />
+    <div class="wrapper container">
+      <div class="page-breadcrumb">
+          <ol class="breadcrumb">
+            <li class="active"> Home </li>
+          </ol>
         </div>
-      </form>
+      <section class="section Jumbotron text-center">
+        <div id="floater"></div>
+        <div class="text-center content">
+          <h1 id="title" class="">Title</h1>
+          <div id="whenContainer">When</div>
+          <h1><span id="container" class="label label-info">Countdown</span></h1>
+        </div>
+
+        <form action="edit.html" method="get">
+          <div class="edit">
+            <input type="hidden" name="title" id="titleEdit" />
+            <input type="hidden" name="when" id="whenEdit" />
+            <input class="btn btn-primary btn-lg" type="submit" value="Edit" />
+          </div>
+        </form>
+      </section>
     </div>
     <script type="text/javascript" src="assets/js/script.js"></script>
   </body>
