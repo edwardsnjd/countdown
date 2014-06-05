@@ -5,8 +5,9 @@ module.exports = function(grunt) {
     concat: {
       dist: {
         src: [
-          'assets/js/bootstrap.min.js',
-          'assets/js/script.js'
+          'assets/js/vendor/jquery-1.11.1.min.js',
+          'assets/js/vendor/bootstrap.min.js',
+          'assets/js/countdown.js'
         ],
         dest: 'assets/js/<%= pkg.name %>.add.js'
       }
