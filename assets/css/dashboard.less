@@ -4,6 +4,16 @@
 	}
 }
 
+.countdown-curr-time {
+  background-color: transparent;
+  border: none;
+  .box-shadow(none);
+}
+
+.countdown-header {
+  border-bottom: 0;
+}
+
 #floater { 
   float: left;
   height: 50%;
@@ -17,8 +27,8 @@
 }
 
 .future {
-  background-color: @theme-bg-future;
+  background-image: linear-gradient(to right, @theme-bg-future, rgba(0, 0, 0, 0), @theme-bg-future);
 }
 .past {
-  background-color: @theme-bg-past;
+  background-image: linear-gradient(to right, @theme-bg-past, rgba(0, 0, 0, 0), @theme-bg-past);
 }

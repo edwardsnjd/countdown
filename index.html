@@ -11,12 +11,25 @@
           <ol class="breadcrumb">
             <li class="active"> Home </li>
           </ol>
-        </div>
+      </div>
       <section class="section Jumbotron text-center">
         <div id="floater"></div>
         <div class="text-center content">
-          <h1 id="title" class="">Title</h1>
-          <div id="whenContainer">When</div>
+          <div class="panel panel-link countdown-curr-time">
+            <div class="panel-heading countdown-header">
+              <h4 class="panel-title">
+                <a href="#countdownTime" data-parent="#accordion" data-toggle="collapse">
+                  <span id="title">Title</span>
+                </a>
+              </h4>
+            </div>
+            <div class="panel-collapse collapse" id="countdownTime">
+              <div class="panel-body">
+                <div id="whenContainer">When</div>
+              </div>
+            </div>
+          </div>
+
           <h1><span id="container" class="label label-info">Countdown</span></h1>
         </div>
 
