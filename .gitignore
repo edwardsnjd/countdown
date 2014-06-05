@@ -1,2 +1,6 @@
 # os generated files
 .DS_Store
+
+# ignore node modules
+node_modules/
+npm-debug.log
