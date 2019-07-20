@@ -1,0 +1,21 @@
+version: '3.5'
+
+services:
+
+  app:
+    image: registry.edwardsnjd.com/countdown:latest
+    networks:
+      - traefik-stack_traefik-net
+    deploy:
+      labels:
+        - "traefik.enable=true"
+        - "traefik.port=80"
+        - "traefik.docker.network=traefik-stack_traefik-net"
+        - "traefik.frontend.rule=Host::${COUNTDOWN_HOSTNAME?Variable COUNTDOWN_HOSTNAME not set}"
+        - "traefik.frontend.redirect.entryPoint=https"
+
+networks:
+
+  # Pre-existing Traefik proxy network
+  traefik-stack_traefik-net:
+    external: true

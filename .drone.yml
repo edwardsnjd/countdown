@@ -1,0 +1,32 @@
+---
+kind: pipeline
+name: default
+
+steps:
+
+- name: build
+  image: plugins/docker
+  settings:
+    repo: registry.edwardsnjd.com/countdown
+    tags: [ "${DRONE_COMMIT_SHA}", "latest" ]
+    registry: registry.edwardsnjd.com
+    username: { from_secret: REGISTRY_USERNAME }
+    password: { from_secret: REGISTRY_PASSWORD }
+
+- name: webhook
+  image: plugins/webhook
+  settings:
+    urls: { from_secret: WEBHOOK_URL }
+
+- name: email
+  image: drillster/drone-email
+  environment:
+    EMAIL_PASSWORD: { from_secret: EMAIL_PASSWORD }
+  settings:
+    from: "edwardsnjd@googlemail.com"
+    host: smtp.gmail.com
+    username: "edwardsnjd@googlemail.com"
+    password: $EMAIL_PASSWORD
+    recipients:
+      - "edwardnjd+drone@googlemail.com"
+...
